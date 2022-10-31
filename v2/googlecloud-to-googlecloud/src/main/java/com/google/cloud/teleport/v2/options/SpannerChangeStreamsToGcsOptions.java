@@ -104,8 +104,19 @@ public interface SpannerChangeStreamsToGcsOptions
 
   void setSpannerChangeStreamName(String spannerChangeStreamName);
 
-  @TemplateParameter.DateTime(
+  @TemplateParameter.Text(
       order = 8,
+      description = "Spanner database role",
+      helpText =
+          "Database role user assumes while reading from the change stream. The database role should"
+              + " have required privileges to read from change stream. If a database role is not"
+              + " specified, the user should have required IAM permissions to read from the database.")
+  String getSpannerDatabaseRole();
+
+  void setSpannerDatabaseRole(String spannerDatabaseRole);
+
+  @TemplateParameter.DateTime(
+      order = 9,
       optional = true,
       description = "The timestamp to read change streams from",
       helpText =
@@ -118,7 +129,7 @@ public interface SpannerChangeStreamsToGcsOptions
   void setStartTimestamp(String startTimestamp);
 
   @TemplateParameter.DateTime(
-      order = 9,
+      order = 10,
       optional = true,
       description = "The timestamp to read change streams to",
       helpText =
@@ -131,7 +142,7 @@ public interface SpannerChangeStreamsToGcsOptions
   void setEndTimestamp(String startTimestamp);
 
   @TemplateParameter.Text(
-      order = 10,
+      order = 11,
       optional = true,
       description = "Cloud Spanner Endpoint to call",
       helpText = "The Cloud Spanner endpoint to call in the template. Only used for testing.",
@@ -142,7 +153,7 @@ public interface SpannerChangeStreamsToGcsOptions
   void setSpannerHost(String value);
 
   @TemplateParameter.Enum(
-      order = 11,
+      order = 12,
       enumOptions = {"TEXT", "AVRO"},
       optional = true,
       description = "Output file format",
@@ -154,7 +165,7 @@ public interface SpannerChangeStreamsToGcsOptions
   void setOutputFileFormat(FileFormat outputFileFormat);
 
   @TemplateParameter.Duration(
-      order = 12,
+      order = 13,
       optional = true,
       description = "Window duration",
       helpText =
@@ -167,7 +178,7 @@ public interface SpannerChangeStreamsToGcsOptions
   void setWindowDuration(String windowDuration);
 
   @TemplateParameter.Enum(
-      order = 13,
+      order = 14,
       enumOptions = {"LOW", "MEDIUM", "HIGH"},
       optional = true,
       description = "Priority for Spanner RPC invocations",

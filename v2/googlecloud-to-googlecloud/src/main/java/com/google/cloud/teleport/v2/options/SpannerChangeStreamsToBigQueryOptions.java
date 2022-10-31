@@ -98,8 +98,18 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
 
   void setSpannerChangeStreamName(String value);
 
-  @TemplateParameter.Enum(
+  @TemplateParameter.Text(
       order = 8,
+      description = "Spanner database role",
+      helpText = "Database role user assumes while reading from the change stream. The database role should"
+          + " have required privileges to read from change stream. If a database role is not"
+          + " specified, the user should have required IAM permissions to read from the database.")
+  String getSpannerDatabaseRole();
+
+  void setSpannerDatabaseRole(String spannerDatabaseRole);
+
+  @TemplateParameter.Enum(
+      order = 9,
       enumOptions = {"LOW", "MEDIUM", "HIGH"},
       optional = true,
       description = "Priority for Spanner RPC invocations",
@@ -111,7 +121,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setRpcPriority(RpcPriority value);
 
   @TemplateParameter.Text(
-      order = 9,
+      order = 10,
       optional = true,
       description = "Cloud Spanner Endpoint to call",
       helpText = "The Cloud Spanner endpoint to call in the template. Only used for testing.",
@@ -121,7 +131,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setSpannerHost(String value);
 
   @TemplateParameter.DateTime(
-      order = 10,
+      order = 11,
       optional = true,
       description = "The timestamp to read change streams from",
       helpText =
@@ -134,7 +144,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setStartTimestamp(String startTimestamp);
 
   @TemplateParameter.DateTime(
-      order = 11,
+      order = 12,
       optional = true,
       description = "The timestamp to read change streams to",
       helpText =
@@ -147,7 +157,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setEndTimestamp(String startTimestamp);
 
   @TemplateParameter.Text(
-      order = 12,
+      order = 13,
       description = "BigQuery dataset",
       helpText = "The BigQuery dataset for change streams output.")
   @Validation.Required
@@ -156,7 +166,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setBigQueryDataset(String value);
 
   @TemplateParameter.ProjectId(
-      order = 13,
+      order = 14,
       optional = true,
       description = "BigQuery project ID",
       helpText = "The BigQuery Project. Default is the project for the Dataflow job.")
@@ -166,7 +176,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setBigQueryProjectId(String value);
 
   @TemplateParameter.Text(
-      order = 14,
+      order = 15,
       optional = true,
       description = "BigQuery table name Template",
       helpText = "The Template for the BigQuery table name that contains the change log")
@@ -176,7 +186,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setBigQueryChangelogTableNameTemplate(String value);
 
   @TemplateParameter.GcsWriteFolder(
-      order = 15,
+      order = 16,
       optional = true,
       description = "Dead letter queue directory",
       helpText =
@@ -187,7 +197,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
   void setDlqDirectory(String value);
 
   @TemplateParameter.Integer(
-      order = 16,
+      order = 17,
       optional = true,
       description = "Dead letter queue retry minutes",
       helpText = "The number of minutes between dead letter queue retries. Defaults to 10.")
@@ -198,7 +208,7 @@ public interface SpannerChangeStreamsToBigQueryOptions extends DataflowPipelineO
 
   // TODO(haikuo-google): Test this in UIF test.
   @TemplateParameter.Text(
-      order = 17,
+      order = 18,
       optional = true,
       description = "Fields to be ignored",
       helpText =
